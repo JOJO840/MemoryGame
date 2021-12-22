@@ -1,40 +1,80 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MyFrame extends JFrame {
-    MyFrame(){
+
+public class MyFrame extends JFrame implements Runnable, ActionListener {
+    JLabel label;
+    JFrame frame;
+    Border border;
+    ImageIcon image1,image2;
+    JButton playButton;
+    JPanel panel;
+
+    @Override
+    public void run() {
+
+            //Frame
+        frame = new JFrame();
+        frame.setLayout(null);
+        frame.setTitle("Memory Game"); // Title Headline
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1800,1100);
+        frame.getContentPane().setBackground(new Color(246, 17, 243, 255)); // change color rgb scale
 
             // label
-        JLabel label = new JLabel();
+        label = new JLabel();
         label.setText("Memory Game!");
         label.setHorizontalTextPosition(JLabel.CENTER); // adds label to center of logo
         label.setVerticalTextPosition(JLabel.TOP); // adds label to top on logo
         label.setForeground(Color.GREEN); // Font color
         label.setFont(new Font("MV Boli",Font.PLAIN,30)); // Sets Font Charastatics
-        label.setVerticalAlignment(JLabel.CENTER);
-        label.setHorizontalAlignment(JLabel.CENTER);
 
-            //Frame
-        JFrame frame = new JFrame();
-        frame.setTitle("Memory Game"); // Title Headline
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000,700);
-        frame.setVisible(true); // visibility
-        frame.add(label);
-        frame.getContentPane().setBackground(new Color(246, 17, 243, 255)); // change color rgb scale
+
+            //JPanel
+        panel = new JPanel();
+        panel.setBackground(Color.magenta);
+        panel.setSize(1800,1100);
+
             //Border
-        Border border = BorderFactory.createLineBorder(Color.CYAN,20);
+        border = BorderFactory.createLineBorder(Color.CYAN,20);
         label.setBorder(border); // add a border around frame
 
-
             // Logo
-        ImageIcon image1 = new ImageIcon("MemoryLogo.png"); // adds logo
+        image1 = new ImageIcon("MemoryLogo.png"); // adds logo
         frame.setIconImage(image1.getImage());
-        ImageIcon image2 = new ImageIcon("MemoryLogo.png");
+        image2 = new ImageIcon("MemoryLogo.png");
         label.setIcon(image2);
 
+            //JButton
+        playButton = new JButton("PLaY");
+        playButton.setFocusable(false);
+        playButton.setBounds(750,750,300,50);
 
+        frame.add(playButton); // playbutton must come first or it will hide beneath panel.
+        frame.add(panel);
+        panel.add(label);
+
+        frame.setVisible(true); // visibility
+
+
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource()==playButton){
+                    frame.dispose();
+                    Game theGame = new Game();
+                    System.out.println("Hej");
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
     }
 }
