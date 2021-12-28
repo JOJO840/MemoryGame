@@ -5,12 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class MyFrame extends JFrame implements Runnable, ActionListener {
-    JLabel label;
+public class MyFrame extends JFrame implements Runnable {
+    JLabel label1;
     JFrame frame;
     Border border;
-    ImageIcon image1,image2;
-    JButton playButton;
+    ImageIcon image1,image2,image3;
     JPanel panel;
 
     @Override
@@ -25,13 +24,12 @@ public class MyFrame extends JFrame implements Runnable, ActionListener {
         frame.getContentPane().setBackground(new Color(246, 17, 243, 255)); // change color rgb scale
 
             // label
-        label = new JLabel();
-        label.setText("Memory Game!");
-        label.setHorizontalTextPosition(JLabel.CENTER); // adds label to center of logo
-        label.setVerticalTextPosition(JLabel.TOP); // adds label to top on logo
-        label.setForeground(Color.GREEN); // Font color
-        label.setFont(new Font("MV Boli",Font.PLAIN,30)); // Sets Font Charastatics
-
+        label1 = new JLabel();
+        label1.setText("Memory Game!");
+        label1.setHorizontalTextPosition(JLabel.CENTER); // adds label to center of logo
+        label1.setVerticalTextPosition(JLabel.TOP); // adds label to top on logo
+        label1.setForeground(Color.GREEN); // Font color
+        label1.setFont(new Font("MV Boli",Font.PLAIN,30)); // Sets Font Charastatics
 
             //JPanel
         panel = new JPanel();
@@ -40,41 +38,49 @@ public class MyFrame extends JFrame implements Runnable, ActionListener {
 
             //Border
         border = BorderFactory.createLineBorder(Color.CYAN,20);
-        label.setBorder(border); // add a border around frame
+        label1.setBorder(border); // add a border around frame
 
             // Logo
         image1 = new ImageIcon("MemoryLogo.png"); // adds logo
         frame.setIconImage(image1.getImage());
         image2 = new ImageIcon("MemoryLogo.png");
-        label.setIcon(image2);
+        label1.setIcon(image2);
 
-            //JButton
-        playButton = new JButton("PLaY");
-        playButton.setFocusable(false);
-        playButton.setBounds(750,750,300,50);
-
-        frame.add(playButton); // playbutton must come first or it will hide beneath panel.
         frame.add(panel);
-        panel.add(label);
+        panel.add(label1);
+
 
         frame.setVisible(true); // visibility
+        frame.setResizable(false);
+
+        image3 = new ImageIcon("logo_mem.png");
+        String[] optionsToChoose = {"4x4 Game", "6x6 Game"};
+        String gameSize = (String) JOptionPane.showInputDialog(
+                null,
+                "Memory Game",
+                "Choose Game Size ",
+                JOptionPane.QUESTION_MESSAGE,
+                image3,
+                optionsToChoose,
+                optionsToChoose[0]);
 
 
-        playButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(e.getSource()==playButton){
-                    frame.dispose();
-                    Game theGame = new Game();
-                    System.out.println("Hej");
-                }
-            }
-        });
-    }
+
+        if (gameSize.equals(optionsToChoose[0])){
+            frame.dispose(); // Quits frame
+            new Game();
+        } else {new Game2();}
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+        frame.pack();
+
 
     }
 }
+
+
+
+
+
+
+

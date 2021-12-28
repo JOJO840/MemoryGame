@@ -1,11 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Game {
+public class Game2 {
     JFrame frame = new JFrame();
-    JLabel label = new JLabel("4x4 Game!");
+    JLabel label = new JLabel("6x6 Game!");
 
-    Game(){
+    Game2(){
         label.setBounds(250,300,300,200);
         label.setFont(new Font(null,Font.PLAIN,30));
 
